@@ -1,8 +1,9 @@
+#![allow(unused)]
+
 use std::io;
 use rand::Rng;
 use std::cmp::Ordering;
 
-#[allow(dead_code)]
 pub fn play()
 {
     println!("Welcome to : Guess the number !");

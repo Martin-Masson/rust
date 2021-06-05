@@ -1,4 +1,5 @@
-#[allow(dead_code)]
+#![allow(unused)]
+
 pub fn first_word(s: &str) -> &str
 {
     let bytes = s.as_bytes();

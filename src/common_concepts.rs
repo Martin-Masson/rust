@@ -1,4 +1,5 @@
-#[allow(dead_code)]
+#![allow(unused)]
+
 pub fn fibonacci(x: u32) -> u32
 {
     if x == 0 || x == 1 {
