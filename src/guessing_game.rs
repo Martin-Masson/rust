@@ -2,6 +2,7 @@ use std::io;
 use rand::Rng;
 use std::cmp::Ordering;
 
+#[allow(dead_code)]
 pub fn play()
 {
     println!("Welcome to : Guess the number !");
@@ -9,7 +10,7 @@ pub fn play()
     loop
     {
         println!("Please input your guess.");
-        let guess = String::new();
+        let mut guess = String::new();
         io::stdin().read_line(&mut guess).expect("Failed to read line");
 
         let guess: u32 = match guess.trim().parse()
