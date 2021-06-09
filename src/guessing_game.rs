@@ -1,8 +1,7 @@
 #![allow(unused)]
 
-use std::io;
+use std::{cmp::Ordering, io};
 use rand::Rng;
-use std::cmp::Ordering;
 
 pub fn play()
 {
