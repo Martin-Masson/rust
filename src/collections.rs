@@ -1,5 +1,7 @@
 #![allow(unused)]
 
+use std::collections::HashMap;
+
 pub fn vectors()
 {
     let v: Vec<i32> = Vec::new();
@@ -81,4 +83,32 @@ pub fn hashmaps()
     scores.entry(String::from("Blue")).or_insert(50);
 
     println!("{:?}", scores);
+}
+
+pub fn stats(mut list: Vec<i32>) -> HashMap<String, f64>
+{
+    let mut output = HashMap::new();
+
+    let sum: i32 = list.iter().sum();
+    let size = list.len();
+    let mean = f64::from(sum) / f64::from(size as i32);
+    output.insert("Mean".to_string(), mean);
+
+    output.insert("Median".to_string(), f64::from(*list.select_nth_unstable(size/2).1));
+
+    let mut occurences: HashMap<i32, i32> = HashMap::new();
+    let mut mode = 0;
+    let mut mode_occurence = 0;
+
+    for value in &list {
+        let count = occurences.entry(*value).or_insert(0);
+        *count += 1;
+        if *count >= mode_occurence {
+            mode_occurence = *count;
+            mode = *value;
+        }
+    }
+    output.insert("Mode".to_string(), f64::from(mode));
+
+    output
 }
