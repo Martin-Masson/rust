@@ -7,5 +7,5 @@ mod collections;
 
 fn main()
 {
-    collections::strings();
+    collections::hashmaps();
 }
