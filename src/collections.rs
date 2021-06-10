@@ -1,6 +1,6 @@
 #![allow(unused)]
 
-use std::collections::HashMap;
+use std::{collections::HashMap, io, fmt};
 
 pub fn vectors()
 {
@@ -123,4 +123,65 @@ pub fn pig_latin(mut s: String) -> String
     }
     let first = s.remove(0);
     s + "-" + &first.to_string() + "ay"
+}
+
+pub fn company_managment()
+{
+    println!("Welcome to the company managment interface!");
+    let mut company: HashMap<String, Vec<String>> = HashMap::new();
+
+    loop {
+        println!("\nWhat would you like to do ?");
+        println!("  (1) Add a new employee to a department");
+        println!("  (2) Retrieve the list of all the people in a department");
+        println!("  (3) Retrieve the list of all the people in the company by department");
+        println!("  (4) Quit");
+
+        let mut action = String::new();
+        io::stdin().read_line(&mut action).expect("Error: Failed to read line");
+
+        let action: u32 = match action.trim().parse() {
+            Ok(a) => a,
+            Err(_) => { println!("Invalid Input: input must be an integer between 1 and 4"); continue; },
+        };
+
+        match action {
+            4 => break,
+            3 => {
+                for (department, employees) in &company {
+                    println!("{} department:", department);
+                    for name in employees { println!("  - {}", name); }
+                }
+            },
+            2 => {
+                println!("Input a department:");
+                let mut department = String::new();
+                io::stdin().read_line(&mut department).expect("Error: Failed to read line");
+
+                let department: String = match department.trim().parse() {
+                    Ok(d) => d,
+                    Err(_) => { println!("Invalid Input: input must be a valid UTF8 String"); continue; },
+                };
+
+                match company.get(&department) {
+                    Some(employees) => { for name in employees { println!("  - {}", name); } },
+                    None => { println!("That department doesn't exist"); continue; }
+                }
+            },
+            1 => {
+                println!("Type \"Add <NAME> to <DEPARTMENT>\":");
+                let mut cmd = String::new();
+                io::stdin().read_line(&mut cmd).expect("Error: Failed to read line");
+
+                let words: Vec<&str> = cmd.trim().split_whitespace().collect();
+
+                if words.len() != 4 || words[0] != "Add" || words[2] != "to" {
+                    println!("The command is incorrect. Try again."); continue;
+                }
+                company.entry(words[3].to_string()).or_insert_with(Vec::new).push(words[1].to_string());
+            },
+            _ => println!("Invalid Input: input must be an integer between 1 and 4"),
+        }
+    }
+    println!("Have a nice day!");
 }
