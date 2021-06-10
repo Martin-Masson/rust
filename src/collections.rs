@@ -112,3 +112,15 @@ pub fn stats(mut list: Vec<i32>) -> HashMap<String, f64>
 
     output
 }
+
+pub fn pig_latin(mut s: String) -> String
+{
+    let vowels: [char; 6] = ['a', 'e', 'i', 'o', 'u', 'y'];
+    for l in &vowels {
+        if s.starts_with(*l) {
+            return s + "-hay";
+        }
+    }
+    let first = s.remove(0);
+    s + "-" + &first.to_string() + "ay"
+}
