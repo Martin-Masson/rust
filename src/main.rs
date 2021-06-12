@@ -4,8 +4,9 @@ mod ownership;
 mod structs;
 mod enums;
 mod collections;
+mod error_handling;
 
 fn main()
 {
-    collections::company_managment();
+    error_handling::hello();
 }
